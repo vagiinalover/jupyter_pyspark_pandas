@@ -1,0 +1,14 @@
+services:
+  jupyter-pyspark:
+    build: .
+    container_name: jupyter_spark_pandas
+    ports:
+      - "8899:8888" # Теперь заходим через localhost:8899
+      - "4050:4040" # Теперь Spark UI доступен на localhost:4050
+    volumes:
+      # Связываем локальную папку со Spark-проектом и данными с контейнером.
+      # Точка (.) означает текущую папку, где лежит этот docker-compose.yml
+      - .:/home/jovyan/work
+    environment:
+      - SPARK_LOCAL_IP=127.0.0.1
+    restart: always
